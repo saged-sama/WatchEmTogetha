@@ -5,5 +5,3 @@
 <div class="flex items-center justify-center min-h-screen min-w-screen">
     <slot></slot>
 </div>
-
-<style></style>
