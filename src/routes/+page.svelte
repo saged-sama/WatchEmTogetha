@@ -4,15 +4,15 @@
     let inputfile: HTMLInputElement;
 
     const removeSpaces = () => {
-        inputfile.value = inputfile.value.replace(/\s/g, '');
-    }
+        inputfile.value = inputfile.value.replace(/\s/g, "");
+    };
 </script>
 
 <div class="flex flex-col md:flex-row w-screen h-screen">
     <div
         class="flex flex-col items-center justify-center text-center gap-2 p-3 h-2/6 md:h-full w-full md:w-1/2 bg-success"
     >
-        <img src="/tab.png" alt="logo" class="w-52">
+        <img src="/tab.png" alt="logo" class="w-52" />
         <h1 class="text-3xl font-bold text-base-100 font-serif">
             Watch Em Togetha
         </h1>

@@ -1,12 +1,10 @@
 import { supabase } from "$lib/supabaseClient";
 import { redirect } from "@sveltejs/kit";
-import fs from "fs";
-import path from "node:path";
 
 export const POST = async ({ params, cookies }) => {
     const { room } = params;
     const { data, error: selectError } = await supabase.from("rooms").select("movie").eq("roomCode", room);
-    
+
     if (selectError) {
         console.error('Error selecting movie:', selectError);
         throw new Error('Error selecting movie');
@@ -40,21 +38,9 @@ export const POST = async ({ params, cookies }) => {
 };
 
 const deleteMovie = async (movie: string) => {
-    const staticPath = path.resolve("static");
-    const filePath = path.join(staticPath, movie);
-
-    console.log('Attempting to delete file at path:', filePath);
-
-    if (fs.existsSync(filePath)) {
-        try {
-            fs.unlink(filePath, (err) =>{
-                console.log("err: ", err);
-            });
-            console.log('File deleted successfully');
-        } catch (error) {
-            console.error('Error deleting file:', error);
-        }
-    } else {
-        console.warn('File does not exist:', filePath);
+    const mv = movie.split("/").pop();
+    const { error } = await supabase.storage.from("movies").remove(mv);
+    if (error) {
+        throw error;
     }
 };

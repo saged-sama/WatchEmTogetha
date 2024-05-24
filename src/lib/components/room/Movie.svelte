@@ -1,5 +1,6 @@
 <script lang="ts">
     import { supabase } from "$lib/supabaseClient";
+    import { Cookie } from "lucide-svelte";
     import { onDestroy, onMount } from "svelte";
 
     export let roomCode: string;
