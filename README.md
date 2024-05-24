@@ -1,18 +1,13 @@
-# create-svelte
+# Watch Em Togetha
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/main/packages/create-svelte).
+Share and watch movies together
 
-## Creating a project
-
-If you're seeing this, you've probably already done this step. Congrats!
-
-```bash
-# create a new project in the current directory
-npm create svelte@latest
-
-# create a new project in my-app
-npm create svelte@latest my-app
-```
+## Usage
+Visit [Watch Em Togetha](https://watch-em-togetha.vercel.app/):
+- Create a room or Give an Existing room code to enter the room
+- Let others join
+- Upload video. The free tier supabase does not support upload of size more than 50MB.
+- Once the video is uploaded, you can watch it together. Whenever one person in the room plays, pauses or seeks, it will automatically play, pause or seek on everyone's end
 
 ## Developing
 
@@ -24,7 +19,12 @@ npm run dev
 # or start the server and open the app in a new browser tab
 npm run dev -- --open
 ```
-
+- ### Supabase Client
+Definition in the $lib/supabaseClient.ts
+- ### Routes
+    -[room]<br>
+        <tb>|- destroy -- 
+        |
 ## Building
 
 To create a production version of your app:
@@ -35,4 +35,10 @@ npm run build
 
 You can preview the production build with `npm run preview`.
 
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+## Environment variables
+
+Create a `.env` file in the root. Inside:
+```JavaScript
+PUBLIC_SUPABASE_URL = ''
+PUBLIC_SUPABASE_SECRET_KEY = ''
+```
