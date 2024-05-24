@@ -31,7 +31,6 @@
             }
 
             if (fileExists.length > 0) {
-                // File exists, delete it
                 const { error: deleteError } = await supabase.storage
                     .from("movies")
                     .remove([`${roomCode}.${movieExt}`]);
@@ -40,8 +39,6 @@
                     throw deleteError;
                 }
             }
-
-            // Upload the new file
             const { error: uploadError } = await supabase.storage
                 .from("movies")
                 .upload(`${roomCode}.${movieExt}`, movie);
