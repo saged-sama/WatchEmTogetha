@@ -30,6 +30,7 @@
 		"bits-ui": "^0.21.9",
 		"clsx": "^2.1.1",
 		"daisyui": "^4.11.1",
+		"firebase": "^10.12.2",
 		"fs-extra": "^11.2.0",
 		"lucide-svelte": "^0.379.0",
 		"path": "^0.12.7",

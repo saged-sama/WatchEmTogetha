@@ -1,5 +1,7 @@
 <script lang="ts">
     import { supabase } from "$lib/supabaseClient";
+    import { storage } from "$lib/firebase";
+    import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
     export let roomCode: string;
     let movie: File | undefined;
@@ -22,58 +24,43 @@
 
         try {
             uploading = true;
-            const { data: fileExists, error: checkError } = await supabase.storage
-                .from("movies")
-                .list('', { search: `${roomCode}.${movieExt}` });
 
-            if (checkError) {
-                throw checkError;
-            }
+            const storageRef = ref(storage, `movies/${roomCode}.${movieExt}`);
+            const uploadTask = uploadBytesResumable(storageRef, movie);
 
-            if (fileExists.length > 0) {
-                const { error: deleteError } = await supabase.storage
-                    .from("movies")
-                    .remove([`${roomCode}.${movieExt}`]);
+            uploadTask.on('state_changed', 
+                (snapshot) => {
+                }, 
+                (error) => {
+                    console.error("Upload failed:", error);
+                    alert("An error occurred while uploading the movie.");
+                    uploading = false;
+                }, 
+                async () => {
+                    const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+                    console.log('File available at', downloadURL);
 
-                if (deleteError) {
-                    throw deleteError;
+                    const { error: updateError } = await supabase
+                        .from("rooms")
+                        .update({
+                            movie: downloadURL,
+                            isPlaying: false,
+                            playbacktime: 0,
+                        })
+                        .eq("roomCode", roomCode);
+
+                    if (updateError) {
+                        throw updateError;
+                    }
+
+                    movie = undefined;
+                    uploading = false;
                 }
-            }
-            const { error: uploadError } = await supabase.storage
-                .from("movies")
-                .upload(`${roomCode}.${movieExt}`, movie);
-
-            if (uploadError) {
-                throw uploadError;
-            }
-
-            const { data: urlData, error: urlError } = await supabase.storage
-                .from("movies")
-                .getPublicUrl(`${roomCode}.${movieExt}`);
-
-            if (urlError) {
-                throw urlError;
-            }
-
-            const { error: updateError } = await supabase
-                .from("rooms")
-                .update({
-                    movie: urlData.publicUrl,
-                    isPlaying: false,
-                    playbacktime: 0,
-                })
-                .eq("roomCode", roomCode);
-
-            if (updateError) {
-                throw updateError;
-            }
-
+            );
         } catch (error) {
             console.error("Error uploading movie:", error);
             alert("An error occurred while uploading the movie.");
-        } finally {
             uploading = false;
-            movie = undefined;
         }
     };
 </script>

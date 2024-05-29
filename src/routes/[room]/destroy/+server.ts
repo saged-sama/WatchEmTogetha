@@ -1,5 +1,7 @@
+import { storage } from "$lib/firebase.js";
 import { supabase } from "$lib/supabaseClient";
 import { redirect } from "@sveltejs/kit";
+import { deleteObject, ref } from "firebase/storage";
 
 export const POST = async ({ params, cookies }) => {
     const { room } = params;
@@ -37,10 +39,15 @@ export const POST = async ({ params, cookies }) => {
     throw redirect(301, "/");
 };
 
-const deleteMovie = async (movie: string) => {
-    const mv = movie.split("/").pop();
-    const { error } = await supabase.storage.from("movies").remove(mv);
-    if (error) {
-        throw error;
+const deleteMovie = async (movieUrl: string) => {
+    try {
+        const moviePath = decodeURIComponent(movieUrl.split('/').pop() as string);
+        const movie = moviePath.split("?")[0];
+        const movieRef = ref(storage, movie);
+        
+        await deleteObject(movieRef);
+    } catch (error) {
+        console.error('Error deleting movie from Firebase Storage:', error);
+        throw new Error('Error deleting movie from Firebase Storage');
     }
 };

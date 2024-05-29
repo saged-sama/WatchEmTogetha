@@ -16,7 +16,7 @@
 <div
   class="flex flex-col items-center justify-center text-center gap-2 p-3 min-h-screen w-full bg-success"
 >
-  <img src="/tab.png" alt="logo" class="w-52" />
+  <img src="/favic.png" alt="logo" class="w-52" />
   <h1 class="text-3xl font-bold text-base-100 font-serif">Watch Em Togetha</h1>
   <h1 class="text-sm">Share and Watch Movies together</h1>
 </div>
