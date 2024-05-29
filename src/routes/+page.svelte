@@ -13,7 +13,7 @@
         class="flex flex-col items-center justify-center text-center gap-2 p-3 h-2/6 md:h-full w-full md:w-1/2 bg-success"
     >
         <img src="/favic.png" alt="logo" class="md:w-52 w-36" />
-        <h1 class="text-3xl font-bold text-base-100 font-serif">
+        <h1 class="text-3xl font-bold text-white font-serif">
             Watch Em Togetha
         </h1>
         <h1 class="text-sm">Share and Watch Movies together</h1>
@@ -39,7 +39,7 @@
                     type="text"
                     name="roomCode"
                     placeholder="room code"
-                    class="input input-bordered rounded-none input-sm md:input-md"
+                    class="input input-bordered rounded-none input-sm md:input-md bg-white"
                     pattern="[^ ]*"
                     on:input={removeSpaces}
                     required

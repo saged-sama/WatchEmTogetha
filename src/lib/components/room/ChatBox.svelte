@@ -69,17 +69,17 @@
     <div class="flex items-center justify-between w-full p-1">
         <h1 class="text-xl font-serif">Chat</h1>
         <details class="dropdown dropdown-end">
-            <summary class="m-1 btn"><Menu class="w-4 h-4"/></summary>
+            <summary class="m-1 btn bg-white"><Menu class="w-4 h-4"/></summary>
             <div
-                class="flex flex-col gap-2 p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52"
+                class="flex flex-col gap-2 p-2 shadow menu dropdown-content z-[1] bg-white rounded-box w-52"
             >
                 <!-- <li> -->
-                    <form action={`/${roomCode}/destroy`} method="post" class="w-full p-1 bg-base-200 rounded-md hover:text-warning">
+                    <form action={`/${roomCode}/destroy`} method="post" class="w-full p-1 bg-white rounded-md hover:text-warning">
                         <button type="submit" class="w-full">Destroy Room</button>
                     </form>
                 <!-- </li> -->
                 <!-- <li> -->
-                    <form action={`/${roomCode}/leaveRoom`} method="post" class="w-full p-1 bg-base-200 rounded-md hover:text-warning">
+                    <form action={`/${roomCode}/leaveRoom`} method="post" class="w-full p-1 bg-white rounded-md hover:text-warning">
                         <input type="text" value={participant} class="hidden" name="nickname">
                         <button type="submit" class="w-full text-error hover:text-warning">Leave Room</button>
                     </form>
@@ -106,7 +106,7 @@
                 {:else}
                     <div class="chat chat-start">
                         <div
-                            class="chat-bubble bg-base-100 text-neutral border-2"
+                            class="chat-bubble bg-white text-neutral border-2"
                         >
                             <div class="chat-header text-success">
                                 {message.sender}
@@ -123,7 +123,7 @@
     <div class="w-full">
         <form on:submit={sendMessage}>
             <label
-                class="input input-bordered rounded-sm flex items-center gap-2"
+                class="input input-bordered bg-white rounded-sm flex items-center gap-2"
             >
                 <input
                     type="text"
