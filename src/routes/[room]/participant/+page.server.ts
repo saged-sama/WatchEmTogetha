@@ -14,6 +14,14 @@ export const actions = {
             if(error){
                 throw error;
             }
+            const {error:messageError} = await supabase.from("messages").insert([{
+                sender: nickname,
+                roomCode: room,
+                message: "Hello, I just Joined!!!"
+            }]);
+            if(messageError){
+                throw messageError;
+            }
             cookies.set("nickname", nickname, {
                 httpOnly: true,
                 secure: false,

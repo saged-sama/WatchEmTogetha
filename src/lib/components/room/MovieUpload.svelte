@@ -82,7 +82,7 @@
             </label>
             <input
                 type="file"
-                accept="video/*"
+                accept="video/*, video/x-matroska, video/webm"
                 name="movie"
                 id="movie"
                 class="hidden"
